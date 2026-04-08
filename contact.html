@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | 八ヶ岳ドローン物流</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--sky:#2d6a8f;--peak:#e8f4f8;--gold:#c9a84c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--ink);color:var(--peak);overflow-x:hidden;}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(26,26,46,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);}
+.logo{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.05em;text-decoration:none;}
+.logo span{font-size:0.65rem;display:block;color:var(--peak);font-weight:300;letter-spacing:0.15em;margin-top:2px;}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav ul a{color:var(--peak);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;opacity:0.8;transition:opacity 0.2s,color 0.2s;}
+nav ul a:hover{opacity:1;color:var(--gold);}
+.page-hero{padding:10rem 3rem 5rem;background:linear-gradient(160deg,#0d1b2a 0%,#1a2d4a 60%,#2d6a8f 100%);position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpolygon points='0,200 0,120 200,80 400,110 600,40 800,80 1000,20 1200,70 1440,30 1440,200' fill='%231a1a2e'/%3E%3C/svg%3E") bottom/cover no-repeat;}
+.page-tag{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
+.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.3;position:relative;z-index:1;}
+.page-hero p{margin-top:1rem;opacity:0.7;max-width:500px;line-height:1.9;position:relative;z-index:1;}
+.contact-wrap{padding:6rem 3rem;background:#0d1520;display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:start;}
+.contact-info h2{font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;}
+.contact-info p{font-size:0.9rem;line-height:2;opacity:0.75;margin-bottom:2.5rem;}
+.info-block{margin-bottom:1.8rem;}
+.info-label{font-size:0.7rem;letter-spacing:0.25em;color:var(--gold);margin-bottom:0.5rem;}
+.info-value{font-size:0.9rem;line-height:1.7;opacity:0.85;}
+.faq{margin-top:3rem;}
+.faq h3{font-family:'Noto Serif JP',serif;font-size:1.1rem;color:var(--gold);margin-bottom:1.5rem;}
+.faq-item{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(45,106,143,0.2);}
+.faq-q{font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;}
+.faq-a{font-size:0.8rem;line-height:1.8;opacity:0.65;}
+.form-group{margin-bottom:1.8rem;}
+label{display:block;font-size:0.75rem;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.6rem;}
+.req{color:#e74c3c;margin-left:0.3rem;}
+input,select,textarea{width:100%;background:rgba(45,106,143,0.1);border:1px solid rgba(45,106,143,0.4);color:var(--peak);padding:0.9rem 1.2rem;font-family:'Noto Sans JP',sans-serif;font-size:0.9rem;transition:border-color 0.2s;outline:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);}
+select option{background:var(--ink);}
+textarea{resize:vertical;min-height:140px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.submit-btn{width:100%;background:var(--gold);color:var(--ink);border:none;padding:1.2rem;font-family:'Noto Sans JP',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.15em;cursor:pointer;transition:opacity 0.2s,transform 0.2s;margin-top:0.5rem;}
+.submit-btn:hover{opacity:0.9;transform:translateY(-1px);}
+.form-note{font-size:0.75rem;opacity:0.5;line-height:1.8;margin-top:1rem;}
+footer{background:#080d14;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.15);}
+.footer-logo{font-family:'Noto Serif JP',serif;color:var(--gold);font-size:1rem;}
+footer p{font-size:0.75rem;opacity:0.45;}
+@media(max-width:900px){.contact-wrap{grid-template-columns:1fr;gap:3rem;}}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}nav ul{gap:1rem;}.page-hero{padding:8rem 1.5rem 4rem;}.contact-wrap{padding:4rem 1.5rem;}.form-row{grid-template-columns:1fr;}footer{flex-direction:column;gap:0.8rem;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">八ヶ岳ドローン物流<span>YATSUGATAKE DRONE LOGISTICS</span></a>
+  <ul><li><a href="service.html">サービス</a></li><li><a href="area.html">対応エリア</a></li><li><a href="contact.html">お問い合わせ</a></li></ul>
+</nav>
+<div class="page-hero">
+  <div class="page-tag">Contact</div>
+  <h1>まず、話しましょう。</h1>
+  <p>山小屋オーナーの方、パートナー企業の方、どうぞお気軽にご連絡ください。現在テスト導入の山小屋を募集中です。</p>
+</div>
+<div class="contact-wrap">
+  <div class="contact-info">
+    <h2>お気軽に<br>ご相談ください</h2>
+    <p>ドローン物流の導入に興味をお持ちの山小屋オーナー様、まずは無料相談からお気軽にどうぞ。現在、テスト運航にご協力いただける山小屋を特別価格にてご案内しています。</p>
+    <div class="info-block"><div class="info-label">所在地</div><div class="info-value">〒408-0000<br>山梨県北杜市</div></div>
+    <div class="info-block"><div class="info-label">営業時間</div><div class="info-value">平日 9:00〜17:00<br>土日祝・悪天候時は対応が遅れる場合があります</div></div>
+    <div class="info-block"><div class="info-label">返信目安</div><div class="info-value">2営業日以内</div></div>
+    <div class="faq">
+      <h3>よくある質問</h3>
+      <div class="faq-item"><div class="faq-q">Q. テスト運航中の費用は？</div><div class="faq-a">テスト期間中は通常料金より大幅割引にてご案内します。まずはご相談ください。</div></div>
+      <div class="faq-item"><div class="faq-q">Q. 冬季でも飛べますか？</div><div class="faq-a">気温・風速・視界の条件が整えば冬季も運航予定です。安全基準を最優先に判断します。</div></div>
+      <div class="faq-item"><div class="faq-q">Q. 対応エリア外の山小屋も相談できますか？</div><div class="faq-a">まずはご相談ください。エリア拡張の参考にさせていただきます。</div></div>
+    </div>
+  </div>
+  <div>
+    <form>
+      <div class="form-row">
+        <div class="form-group"><label>お名前 <span class="req">*</span></label><input type="text" placeholder="山田 太郎"></div>
+        <div class="form-group"><label>山小屋・施設名</label><input type="text" placeholder="〇〇山荘"></div>
+      </div>
+      <div class="form-group"><label>メールアドレス <span class="req">*</span></label><input type="email" placeholder="info@example.com"></div>
+      <div class="form-group"><label>電話番号</label><input type="tel" placeholder="0551-00-0000"></div>
+      <div class="form-group">
+        <label>お問い合わせの種類 <span class="req">*</span></label>
+        <select><option value="" disabled selected>選択してください</option><option>テスト運航への参加について</option><option>サービス・料金について</option><option>対応エリアについて</option><option>パートナー・業務提携について</option><option>その他</option></select>
+      </div>
+      <div class="form-group"><label>メッセージ <span class="req">*</span></label><textarea placeholder="ご質問・ご要望・現在の状況などをご記入ください。"></textarea></div>
+      <button type="submit" class="submit-btn">送信する</button>
+      <p class="form-note">※ お送りいただいた個人情報は、お問い合わせへの返答にのみ使用します。</p>
+    </form>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">八ヶ岳ドローン物流</div>
+  <p>〒408-0000 山梨県北杜市　© 2025 八ヶ岳ドローン物流</p>
+</footer>
+</body>
+</html>

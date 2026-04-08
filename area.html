@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>対応エリア | 八ヶ岳ドローン物流</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--sky:#2d6a8f;--peak:#e8f4f8;--gold:#c9a84c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--ink);color:var(--peak);overflow-x:hidden;}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(26,26,46,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);}
+.logo{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.05em;text-decoration:none;}
+.logo span{font-size:0.65rem;display:block;color:var(--peak);font-weight:300;letter-spacing:0.15em;margin-top:2px;}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav ul a{color:var(--peak);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;opacity:0.8;transition:opacity 0.2s,color 0.2s;}
+nav ul a:hover{opacity:1;color:var(--gold);}
+.page-hero{padding:10rem 3rem 5rem;background:linear-gradient(160deg,#0d1b2a 0%,#1a2d4a 60%,#2d6a8f 100%);position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpolygon points='0,200 0,120 200,80 400,110 600,40 800,80 1000,20 1200,70 1440,30 1440,200' fill='%231a1a2e'/%3E%3C/svg%3E") bottom/cover no-repeat;}
+.page-tag{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
+.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.3;position:relative;z-index:1;}
+.page-hero p{margin-top:1rem;opacity:0.7;max-width:500px;line-height:1.9;position:relative;z-index:1;}
+section{padding:5rem 3rem;}
+.section-label{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;}
+.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;margin-bottom:3rem;line-height:1.4;}
+.base{background:#0d1520;}
+.base-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.base-info h3{font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;}
+.base-info p{font-size:0.9rem;line-height:2;opacity:0.75;margin-bottom:1.5rem;}
+.base-detail{border-left:3px solid var(--gold);padding-left:1.2rem;margin-bottom:1rem;}
+.base-detail dt{font-size:0.7rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.3rem;}
+.base-detail dd{font-size:0.9rem;}
+.map-ph{background:linear-gradient(135deg,rgba(45,106,143,0.2),rgba(26,26,46,0.5));border:1px solid rgba(45,106,143,0.3);height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:0.85rem;opacity:0.6;gap:1rem;}
+.huts{background:var(--ink);}
+.huts-intro{max-width:600px;margin-bottom:3rem;font-size:0.95rem;line-height:1.9;opacity:0.75;}
+.hut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.hut-card{border:1px solid rgba(45,106,143,0.3);padding:2rem;position:relative;transition:border-color 0.3s,background 0.3s;}
+.hut-card:hover{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.hut-badge{position:absolute;top:1.2rem;right:1.2rem;font-size:0.65rem;padding:0.2rem 0.6rem;background:rgba(201,168,76,0.2);color:var(--gold);border:1px solid rgba(201,168,76,0.4);letter-spacing:0.1em;}
+.hut-name{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;}
+.hut-alt{font-size:0.75rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:1rem;}
+.hut-desc{font-size:0.85rem;line-height:1.8;opacity:0.7;}
+.routes{background:#0d1520;}
+.route-item{display:flex;align-items:flex-start;gap:2rem;padding:2rem;border-bottom:1px solid rgba(45,106,143,0.15);}
+.route-item:last-child{border-bottom:none;}
+.route-icon{font-size:1.8rem;flex-shrink:0;}
+.route-name{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;color:var(--gold);}
+.route-detail{font-size:0.85rem;line-height:1.8;opacity:0.7;}
+.route-meta{display:flex;gap:1.5rem;margin-top:0.8rem;flex-wrap:wrap;}
+.meta-item{font-size:0.75rem;opacity:0.6;}
+.meta-item strong{color:var(--peak);opacity:1;font-size:0.9rem;}
+footer{background:#080d14;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.15);}
+.footer-logo{font-family:'Noto Serif JP',serif;color:var(--gold);font-size:1rem;}
+footer p{font-size:0.75rem;opacity:0.45;}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}nav ul{gap:1rem;}section{padding:3rem 1.5rem;}.page-hero{padding:8rem 1.5rem 4rem;}.base-layout{grid-template-columns:1fr;}footer{flex-direction:column;gap:0.8rem;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">八ヶ岳ドローン物流<span>YATSUGATAKE DRONE LOGISTICS</span></a>
+  <ul><li><a href="service.html">サービス</a></li><li><a href="area.html">対応エリア</a></li><li><a href="contact.html">お問い合わせ</a></li></ul>
+</nav>
+<div class="page-hero">
+  <div class="page-tag">Service Area</div>
+  <h1>八ヶ岳の空を、<br>私たちのフィールドに</h1>
+  <p>山梨県北杜市を拠点に、八ヶ岳周辺の山小屋へドローン物流を展開。標高2,000m超の山岳エリアをカバーします。</p>
+</div>
+<section class="base">
+  <div class="section-label">Our Base</div>
+  <h2 class="section-title">拠点情報</h2>
+  <div class="base-layout">
+    <div class="base-info">
+      <h3>山梨県北杜市</h3>
+      <p>八ヶ岳の麓、山梨県北杜市に物流拠点を構えます。標高約900mに位置するこの場所は、八ヶ岳南麓へのアクセスに優れており、ドローン離発着場としても理想的な環境です。</p>
+      <dl>
+        <div class="base-detail"><dt>拠点住所</dt><dd>山梨県北杜市（詳細はお問い合わせにて）</dd></div>
+        <div class="base-detail"><dt>運航時間</dt><dd>日の出〜日没（天候・視界条件による）</dd></div>
+        <div class="base-detail"><dt>運休条件</dt><dd>風速10m/s以上・視界不良・雷雨時</dd></div>
+      </dl>
+    </div>
+    <div class="map-ph">
+      <div style="font-size:3rem">🗺️</div>
+      <div>北杜市〜八ヶ岳 エリアマップ</div>
+      <div style="font-size:0.75rem">（地図は準備中です）</div>
+    </div>
+  </div>
+</section>
+<section class="huts">
+  <div class="section-label">Target Mountain Huts</div>
+  <h2 class="section-title">対応予定の主な山小屋</h2>
+  <p class="huts-intro">八ヶ岳連峰に点在する山小屋を対象に、ドローン物流サービスを展開します。下記は対応予定エリアの一例です。順次拡大予定。</p>
+  <div class="hut-grid">
+    <div class="hut-card"><span class="hut-badge">対応予定</span><div class="hut-name">赤岳頂上山荘</div><div class="hut-alt">▲ 標高 2,899m</div><p class="hut-desc">八ヶ岳最高峰・赤岳の山頂直下に位置。冬季も営業する山小屋で、物資補給の需要が高い。</p></div>
+    <div class="hut-card"><span class="hut-badge">対応予定</span><div class="hut-name">行者小屋</div><div class="hut-alt">▲ 標高 2,350m</div><p class="hut-desc">赤岳・横岳・硫黄岳への登山基地として多くの登山者が利用。年間を通じて需要が安定。</p></div>
+    <div class="hut-card"><span class="hut-badge">対応予定</span><div class="hut-name">赤岳鉱泉</div><div class="hut-alt">▲ 標高 2,220m</div><p class="hut-desc">アイスキャンディーで有名な人気山小屋。冬季登山者も多く、通年での補給ニーズがある。</p></div>
+    <div class="hut-card"><span class="hut-badge">対応予定</span><div class="hut-name">オーレン小屋</div><div class="hut-alt">▲ 標高 2,330m</div><p class="hut-desc">夏沢鉱泉の上部に位置するアットホームな山小屋。食事が充実しており、食材補給の需要大。</p></div>
+    <div class="hut-card"><span class="hut-badge">対応予定</span><div class="hut-name">硫黄岳山荘</div><div class="hut-alt">▲ 標高 2,652m</div><p class="hut-desc">コマクサの群落で有名な硫黄岳山頂近くの山荘。稜線上のため強風が多く、安定輸送が課題。</p></div>
+    <div class="hut-card"><span class="hut-badge">調整中</span><div class="hut-name">権現岳周辺</div><div class="hut-alt">▲ 標高 2,400m〜</div><p class="hut-desc">八ヶ岳南端エリア。今後の路線拡張に向けて調査・交渉を進めています。</p></div>
+  </div>
+</section>
+<section class="routes">
+  <div class="section-label">Flight Routes</div>
+  <h2 class="section-title">フライトルート（計画）</h2>
+  <div class="route-item">
+    <div class="route-icon">🚁</div>
+    <div>
+      <div class="route-name">南ルート（北杜 → 美濃戸口 → 行者小屋）</div>
+      <p class="route-detail">八ヶ岳山荘付近を離発着地点とし、大同心稜を沿うように行者小屋・赤岳へ。最も利用頻度が高いメインルート。</p>
+      <div class="route-meta">
+        <div class="meta-item">飛行距離 <strong>約12km</strong></div>
+        <div class="meta-item">飛行時間 <strong>約25分</strong></div>
+        <div class="meta-item">標高差 <strong>約1,400m</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="route-item">
+    <div class="route-icon">🚁</div>
+    <div>
+      <div class="route-name">北ルート（小淵沢 → 夏沢鉱泉 → オーレン小屋）</div>
+      <p class="route-detail">桜平から夏沢鉱泉・オーレン小屋・硫黄岳山荘を結ぶルート。稜線上の風況に注意が必要。</p>
+      <div class="route-meta">
+        <div class="meta-item">飛行距離 <strong>約10km</strong></div>
+        <div class="meta-item">飛行時間 <strong>約20分</strong></div>
+        <div class="meta-item">標高差 <strong>約1,300m</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">八ヶ岳ドローン物流</div>
+  <p>〒408-0000 山梨県北杜市　© 2025 八ヶ岳ドローン物流</p>
+</footer>
+</body>
+</html>

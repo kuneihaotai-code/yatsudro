@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サービス | 八ヶ岳ドローン物流</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--sky:#2d6a8f;--peak:#e8f4f8;--gold:#c9a84c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--ink);color:var(--peak);overflow-x:hidden;}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(26,26,46,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);}
+.logo{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.05em;text-decoration:none;}
+.logo span{font-size:0.65rem;display:block;color:var(--peak);font-weight:300;letter-spacing:0.15em;margin-top:2px;}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav ul a{color:var(--peak);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;opacity:0.8;transition:opacity 0.2s,color 0.2s;}
+nav ul a:hover{opacity:1;color:var(--gold);}
+.page-hero{padding:10rem 3rem 5rem;background:linear-gradient(160deg,#0d1b2a 0%,#1a2d4a 60%,#2d6a8f 100%);position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpolygon points='0,200 0,120 200,80 400,110 600,40 800,80 1000,20 1200,70 1440,30 1440,200' fill='%231a1a2e'/%3E%3C/svg%3E") bottom/cover no-repeat;}
+.page-tag{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
+.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.3;position:relative;z-index:1;}
+.page-hero p{margin-top:1rem;opacity:0.7;max-width:500px;line-height:1.9;position:relative;z-index:1;}
+section{padding:5rem 3rem;}
+.section-label{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;}
+.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;margin-bottom:3rem;line-height:1.4;}
+.services{background:#0d1520;}
+.service-item{display:grid;grid-template-columns:80px 1fr;gap:2rem;align-items:start;padding:2.5rem;border:1px solid rgba(45,106,143,0.3);margin-bottom:1.5rem;transition:border-color 0.3s;}
+.service-item:hover{border-color:var(--gold);}
+.service-num{font-family:'Noto Serif JP',serif;font-size:3rem;font-weight:900;color:rgba(201,168,76,0.25);line-height:1;}
+.service-name{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;color:var(--gold);}
+.service-desc{font-size:0.9rem;line-height:1.9;opacity:0.75;}
+.tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;}
+.tag{font-size:0.7rem;padding:0.3rem 0.8rem;border:1px solid rgba(201,168,76,0.4);color:var(--gold);letter-spacing:0.1em;}
+.items{background:var(--ink);}
+.items-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;}
+.item-card{background:rgba(45,106,143,0.1);border:1px solid rgba(45,106,143,0.25);padding:1.8rem 1.2rem;text-align:center;transition:background 0.3s;}
+.item-card:hover{background:rgba(45,106,143,0.2);}
+.item-icon{font-size:2rem;margin-bottom:0.8rem;}
+.item-name{font-size:0.85rem;opacity:0.85;}
+.pricing{background:#0d1520;}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:1.2rem 1.5rem;text-align:left;border-bottom:1px solid rgba(45,106,143,0.2);font-size:0.9rem;}
+th{background:rgba(201,168,76,0.1);color:var(--gold);font-weight:700;letter-spacing:0.1em;font-size:0.8rem;}
+tr:hover td{background:rgba(45,106,143,0.08);}
+.pricing-note{margin-top:1.5rem;font-size:0.8rem;opacity:0.5;line-height:1.8;}
+footer{background:#080d14;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.15);}
+.footer-logo{font-family:'Noto Serif JP',serif;color:var(--gold);font-size:1rem;}
+footer p{font-size:0.75rem;opacity:0.45;}
+@media(max-width:768px){nav{padding:1rem 1.5rem;}nav ul{gap:1rem;}section{padding:3rem 1.5rem;}.page-hero{padding:8rem 1.5rem 4rem;}.service-item{grid-template-columns:1fr;}footer{flex-direction:column;gap:0.8rem;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">八ヶ岳ドローン物流<span>YATSUGATAKE DRONE LOGISTICS</span></a>
+  <ul><li><a href="service.html">サービス</a></li><li><a href="area.html">対応エリア</a></li><li><a href="contact.html">お問い合わせ</a></li></ul>
+</nav>
+<div class="page-hero">
+  <div class="page-tag">Services</div>
+  <h1>ドローンが拓く、<br>新しい山岳物流</h1>
+  <p>八ヶ岳の山小屋を支えるため、空から安全・確実に物資をお届けします。</p>
+</div>
+<section class="services">
+  <div class="section-label">Our Services</div>
+  <h2 class="section-title">サービス一覧</h2>
+  <div class="service-item">
+    <div class="service-num">01</div>
+    <div>
+      <div class="service-name">定期便配送サービス</div>
+      <p class="service-desc">週1〜3便の定期配送プランをご用意。食材・飲料・消耗品など、山小屋の日常運営に必要な物資を計画的にお届けします。スケジュールは山小屋のニーズに合わせて柔軟に調整可能です。</p>
+      <div class="tags"><span class="tag">食材</span><span class="tag">飲料</span><span class="tag">消耗品</span><span class="tag">定期契約割引あり</span></div>
+    </div>
+  </div>
+  <div class="service-item">
+    <div class="service-num">02</div>
+    <div>
+      <div class="service-name">緊急・スポット配送</div>
+      <p class="service-desc">急な在庫切れや緊急の物資補給に対応するスポット便。お申込みから最短2時間での出発を目指します。悪天候時を除き、迅速に対応します。</p>
+      <div class="tags"><span class="tag">医薬品</span><span class="tag">緊急物資</span><span class="tag">スポット対応</span></div>
+    </div>
+  </div>
+  <div class="service-item">
+    <div class="service-num">03</div>
+    <div>
+      <div class="service-name">重量貨物輸送</div>
+      <p class="service-desc">最大積載量15kgまでの重量物に対応。複数のドローンによるリレー輸送も実施し、より大量・重量の荷物にも対応できる体制を整えています。</p>
+      <div class="tags"><span class="tag">最大15kg</span><span class="tag">工具・器材</span><span class="tag">リレー輸送</span></div>
+    </div>
+  </div>
+</section>
+<section class="items">
+  <div class="section-label">Cargo Types</div>
+  <h2 class="section-title">対応品目</h2>
+  <div class="items-grid">
+    <div class="item-card"><div class="item-icon">🥩</div><div class="item-name">食材・生鮮品</div></div>
+    <div class="item-card"><div class="item-icon">🍶</div><div class="item-name">飲料・酒類</div></div>
+    <div class="item-card"><div class="item-icon">💊</div><div class="item-name">医薬品・衛生用品</div></div>
+    <div class="item-card"><div class="item-icon">🔧</div><div class="item-name">工具・補修材</div></div>
+    <div class="item-card"><div class="item-icon">🧴</div><div class="item-name">洗剤・消耗品</div></div>
+    <div class="item-card"><div class="item-icon">🎒</div><div class="item-name">登山用品</div></div>
+    <div class="item-card"><div class="item-icon">📦</div><div class="item-name">その他雑貨</div></div>
+    <div class="item-card"><div class="item-icon">🔋</div><div class="item-name">電池・充電器</div></div>
+  </div>
+</section>
+<section class="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">料金目安</h2>
+  <table>
+    <thead><tr><th>プラン</th><th>内容</th><th>料金（税別）</th></tr></thead>
+    <tbody>
+      <tr><td>定期便ライト</td><td>週1便・5kgまで</td><td>¥15,000〜 / 月</td></tr>
+      <tr><td>定期便スタンダード</td><td>週2便・10kgまで</td><td>¥25,000〜 / 月</td></tr>
+      <tr><td>定期便プレミアム</td><td>週3便・15kgまで</td><td>¥38,000〜 / 月</td></tr>
+      <tr><td>スポット便</td><td>1回あたり・5kgまで</td><td>¥8,000〜 / 回</td></tr>
+    </tbody>
+  </table>
+  <p class="pricing-note">※ 料金は配送先の標高・距離により変動します。まずはお気軽にお問い合わせください。<br>※ 現在テスト運航中のため、初回ご利用は特別価格にてご案内しております。</p>
+</section>
+<footer>
+  <div class="footer-logo">八ヶ岳ドローン物流</div>
+  <p>〒408-0000 山梨県北杜市　© 2025 八ヶ岳ドローン物流</p>
+</footer>
+</body>
+</html>
