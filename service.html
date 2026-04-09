@@ -4,64 +4,232 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>サービス | 八ヶ岳ドローン物流</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<title>サービス | ヤツドロ。</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1a1a2e;--sky:#2d6a8f;--peak:#e8f4f8;--gold:#c9a84c;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--ink);color:var(--peak);overflow-x:hidden;}
-nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(26,26,46,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);}
-.logo{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.05em;text-decoration:none;}
-.logo span{font-size:0.65rem;display:block;color:var(--peak);font-weight:300;letter-spacing:0.15em;margin-top:2px;}
-nav ul{list-style:none;display:flex;gap:2rem;}
-nav ul a{color:var(--peak);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;opacity:0.8;transition:opacity 0.2s,color 0.2s;}
-nav ul a:hover{opacity:1;color:var(--gold);}
-.page-hero{padding:10rem 3rem 5rem;background:linear-gradient(160deg,#0d1b2a 0%,#1a2d4a 60%,#2d6a8f 100%);position:relative;overflow:hidden;}
-.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpolygon points='0,200 0,120 200,80 400,110 600,40 800,80 1000,20 1200,70 1440,30 1440,200' fill='%231a1a2e'/%3E%3C/svg%3E") bottom/cover no-repeat;}
-.page-tag{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
-.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.3;position:relative;z-index:1;}
-.page-hero p{margin-top:1rem;opacity:0.7;max-width:500px;line-height:1.9;position:relative;z-index:1;}
-section{padding:5rem 3rem;}
-.section-label{font-size:0.7rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;}
-.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;margin-bottom:3rem;line-height:1.4;}
-.services{background:#0d1520;}
-.service-item{display:grid;grid-template-columns:80px 1fr;gap:2rem;align-items:start;padding:2.5rem;border:1px solid rgba(45,106,143,0.3);margin-bottom:1.5rem;transition:border-color 0.3s;}
-.service-item:hover{border-color:var(--gold);}
-.service-num{font-family:'Noto Serif JP',serif;font-size:3rem;font-weight:900;color:rgba(201,168,76,0.25);line-height:1;}
-.service-name{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;color:var(--gold);}
-.service-desc{font-size:0.9rem;line-height:1.9;opacity:0.75;}
-.tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;}
-.tag{font-size:0.7rem;padding:0.3rem 0.8rem;border:1px solid rgba(201,168,76,0.4);color:var(--gold);letter-spacing:0.1em;}
-.items{background:var(--ink);}
-.items-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;}
-.item-card{background:rgba(45,106,143,0.1);border:1px solid rgba(45,106,143,0.25);padding:1.8rem 1.2rem;text-align:center;transition:background 0.3s;}
-.item-card:hover{background:rgba(45,106,143,0.2);}
-.item-icon{font-size:2rem;margin-bottom:0.8rem;}
-.item-name{font-size:0.85rem;opacity:0.85;}
-.pricing{background:#0d1520;}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:1.2rem 1.5rem;text-align:left;border-bottom:1px solid rgba(45,106,143,0.2);font-size:0.9rem;}
-th{background:rgba(201,168,76,0.1);color:var(--gold);font-weight:700;letter-spacing:0.1em;font-size:0.8rem;}
-tr:hover td{background:rgba(45,106,143,0.08);}
-.pricing-note{margin-top:1.5rem;font-size:0.8rem;opacity:0.5;line-height:1.8;}
-footer{background:#080d14;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.15);}
-.footer-logo{font-family:'Noto Serif JP',serif;color:var(--gold);font-size:1rem;}
-footer p{font-size:0.75rem;opacity:0.45;}
-@media(max-width:768px){nav{padding:1rem 1.5rem;}nav ul{gap:1rem;}section{padding:3rem 1.5rem;}.page-hero{padding:8rem 1.5rem 4rem;}.service-item{grid-template-columns:1fr;}footer{flex-direction:column;gap:0.8rem;text-align:center;}}
+@font-face {
+  font-family: 'Semamojikana';
+  src: url('Semamojikana-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --white: #ffffff;
+  --snow: #f4f7fb;
+  --mist: #e4ecf5;
+  --sky: #4a7fa8;
+  --deep: #1d3a5c;
+  --peak: #0d2240;
+  --text: #2c3e52;
+  --sub: #6b7f96;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 1.1rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--mist);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 24px rgba(29,58,92,0.1); }
+.logo {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--deep); letter-spacing: 0.04em;
+  text-decoration: none;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.logo-text {
+  font-family: 'Semamojikana', sans-serif;
+  letter-spacing: 0.05em;
+}
+.logo-img { height: 38px; width: 38px; object-fit: contain; flex-shrink: 0; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-sub {
+  font-size: 0.55rem; display: block;
+  color: var(--sky); font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300; letter-spacing: 0.18em; margin-top: 4px;
+}
+nav ul { list-style: none; display: flex; gap: 2.2rem; }
+nav ul a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.8rem; letter-spacing: 0.1em; font-weight: 500;
+  opacity: 0.65; transition: opacity 0.2s, color 0.2s;
+  position: relative; padding-bottom: 2px;
+}
+nav ul a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--sky); transition: width 0.3s;
+}
+nav ul a:hover { opacity: 1; color: var(--deep); }
+nav ul a:hover::after { width: 100%; }
+
+/* PAGE HERO */
+.page-hero {
+  padding: 10rem 3rem 6rem;
+  position: relative; overflow: hidden;
+}
+.page-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+  filter: brightness(0.7) saturate(0.85);
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(170deg, rgba(255,255,255,0.06) 0%, rgba(13,34,64,0.55) 100%);
+  z-index: 1;
+}
+.page-hero-ridge {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 100px; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpolygon points='0,100 0,65 180,38 360,60 540,22 720,48 900,12 1080,42 1260,20 1440,45 1440,100' fill='%23ffffff'/%3E%3C/svg%3E") bottom/cover no-repeat;
+}
+.page-tag {
+  font-size: 0.64rem; letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.68); text-transform: uppercase;
+  margin-bottom: 1rem; position: relative; z-index: 3;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.page-tag::before {
+  content: ''; display: inline-block; width: 20px; height: 1px; background: rgba(255,255,255,0.5);
+}
+.page-hero h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800; line-height: 1.25; color: #fff;
+  position: relative; z-index: 3;
+  text-shadow: 0 2px 24px rgba(13,34,64,0.3);
+}
+.page-hero p {
+  margin-top: 1.2rem; color: rgba(255,255,255,0.75);
+  max-width: 480px; line-height: 1.95; font-size: 0.93rem;
+  position: relative; z-index: 3;
+}
+
+/* SECTIONS */
+section { padding: 6rem 3rem; }
+.section-eyebrow {
+  font-size: 0.64rem; letter-spacing: 0.35em;
+  color: var(--sky); text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.section-eyebrow::before {
+  content: ''; display: inline-block; width: 20px; height: 1px; background: var(--sky);
+}
+.section-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  font-weight: 700; color: var(--peak);
+  margin-bottom: 3rem; line-height: 1.4;
+}
+
+/* SERVICE ITEMS */
+.services { background: var(--snow); }
+.service-item {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 2rem; align-items: start;
+  padding: 2.5rem; background: var(--white);
+  border-left: 3px solid transparent;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.service-item:hover {
+  border-left-color: var(--sky);
+  box-shadow: 0 4px 24px rgba(74,127,168,0.08);
+}
+.service-num {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 2.8rem; font-weight: 800;
+  color: var(--mist); line-height: 1;
+}
+.service-name {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.2rem; font-weight: 700;
+  margin-bottom: 0.8rem; color: var(--deep);
+}
+.service-desc { font-size: 0.88rem; line-height: 1.95; color: var(--sub); }
+.tags { margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  font-size: 0.68rem; padding: 0.3rem 0.9rem;
+  background: var(--mist); color: var(--sky);
+  letter-spacing: 0.08em;
+}
+
+/* ITEMS */
+.items { background: var(--white); }
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5px; background: var(--mist); border: 1.5px solid var(--mist);
+}
+.item-card {
+  background: var(--white); padding: 2rem 1.2rem;
+  text-align: center; transition: background 0.3s;
+}
+.item-card:hover { background: var(--snow); }
+.item-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.item-name { font-size: 0.82rem; color: var(--text); }
+
+/* PRICING */
+.pricing { background: var(--snow); }
+table { width: 100%; border-collapse: collapse; background: var(--white); }
+th, td {
+  padding: 1.1rem 1.5rem; text-align: left;
+  border-bottom: 1px solid var(--mist); font-size: 0.88rem;
+}
+th {
+  background: var(--deep); color: rgba(255,255,255,0.8);
+  font-weight: 500; letter-spacing: 0.1em; font-size: 0.75rem;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--snow); }
+.pricing-note { margin-top: 1.5rem; font-size: 0.78rem; color: var(--sub); line-height: 1.9; }
+
+footer {
+  background: var(--peak); padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo { font-family: 'Shippori Mincho B1', serif; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+
+@media(max-width: 768px) {
+  nav { padding: 1rem 1.5rem; } nav ul { gap: 1.2rem; }
+  section { padding: 4rem 1.5rem; }
+  .page-hero { padding: 8rem 1.5rem 5rem; }
+  .service-item { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
 </style>
 </head>
 <body>
-<nav>
-  <a href="index.html" class="logo">八ヶ岳ドローン物流<span>YATSUGATAKE DRONE LOGISTICS</span></a>
-  <ul><li><a href="service.html">サービス</a></li><li><a href="area.html">対応エリア</a></li><li><a href="contact.html">お問い合わせ</a></li></ul>
+
+<nav id="nav">
+  <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤツドロ<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+  <ul>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="area.html">対応エリア</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
 </nav>
+
 <div class="page-hero">
+  <video autoplay muted loop playsinline class="page-video">
+    <source src="hero1.mp4" type="video/mp4">
+  </video>
+  <div class="page-hero-ridge"></div>
   <div class="page-tag">Services</div>
   <h1>ドローンが拓く、<br>新しい山岳物流</h1>
   <p>八ヶ岳の山小屋を支えるため、空から安全・確実に物資をお届けします。</p>
 </div>
+
 <section class="services">
-  <div class="section-label">Our Services</div>
+  <div class="section-eyebrow">Our Services</div>
   <h2 class="section-title">サービス一覧</h2>
   <div class="service-item">
     <div class="service-num">01</div>
@@ -88,8 +256,9 @@ footer p{font-size:0.75rem;opacity:0.45;}
     </div>
   </div>
 </section>
+
 <section class="items">
-  <div class="section-label">Cargo Types</div>
+  <div class="section-eyebrow">Cargo Types</div>
   <h2 class="section-title">対応品目</h2>
   <div class="items-grid">
     <div class="item-card"><div class="item-icon">🥩</div><div class="item-name">食材・生鮮品</div></div>
@@ -102,8 +271,9 @@ footer p{font-size:0.75rem;opacity:0.45;}
     <div class="item-card"><div class="item-icon">🔋</div><div class="item-name">電池・充電器</div></div>
   </div>
 </section>
+
 <section class="pricing">
-  <div class="section-label">Pricing</div>
+  <div class="section-eyebrow">Pricing</div>
   <h2 class="section-title">料金目安</h2>
   <table>
     <thead><tr><th>プラン</th><th>内容</th><th>料金（税別）</th></tr></thead>
@@ -116,9 +286,17 @@ footer p{font-size:0.75rem;opacity:0.45;}
   </table>
   <p class="pricing-note">※ 料金は配送先の標高・距離により変動します。まずはお気軽にお問い合わせください。<br>※ 現在テスト運航中のため、初回ご利用は特別価格にてご案内しております。</p>
 </section>
+
 <footer>
-  <div class="footer-logo">八ヶ岳ドローン物流</div>
-  <p>〒408-0000 山梨県北杜市　© 2025 八ヶ岳ドローン物流</p>
+  <div class="footer-logo">ヤツドロ。</div>
+  <p>〒408-0000 山梨県北杜市　© 2026 ヤツドロ。</p>
 </footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+</script>
 </body>
 </html>
