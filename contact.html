@@ -145,7 +145,7 @@ nav ul a:hover::after { width: 100%; }
 .faq-a { font-size: 0.82rem; line-height: 1.85; color: var(--sub); }
 
 /* FORM */
-.form-panel { background: var(--snow); padding: 2.5rem; }
+.form-panel { background: var(--snow); padding: 1.5rem 2rem; overflow: hidden; }
 .form-group { margin-bottom: 1.6rem; }
 label {
   display: block; font-size: 0.72rem;
@@ -182,7 +182,7 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 .footer-logo { font-family: 'Shippori Mincho B1', serif; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
-footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 
 @media(max-width: 900px) { .contact-wrap { grid-template-columns: 1fr; gap: 3rem; } }
 @media(max-width: 768px) {
@@ -192,18 +192,133 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
   .form-row { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 0.8rem; text-align: center; }
 }
+
+/* ===== HAMBURGER MENU ===== */
+.nav-links { display: none !important; }
+.menu-btn {
+  position: fixed; top: 1.1rem; right: 1.5rem; z-index: 200;
+  width: 50px; height: 50px;
+  background: var(--deep);
+  border: none; cursor: pointer;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 20px rgba(13,34,64,0.28);
+}
+.menu-btn:hover { background: var(--peak); transform: scale(1.05); }
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: #fff;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s;
+  transform-origin: center;
+}
+.menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Compact dropdown panel from top-right */
+.nav-overlay {
+  position: fixed; top: 0; right: 0; z-index: 150;
+  background: var(--peak);
+  padding: 5rem 2.5rem 2rem;
+  min-width: 220px;
+  transform: translateY(-110%);
+  transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  pointer-events: none;
+  box-shadow: 0 8px 40px rgba(13,34,64,0.32);
+}
+.nav-overlay.open {
+  transform: translateY(0);
+  pointer-events: all;
+}
+.nav-overlay ul { list-style: none; }
+.nav-overlay ul li {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-overlay ul li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay ul a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500; color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 0.85rem 0;
+  letter-spacing: 0.14em;
+  display: flex; align-items: center; gap: 0.6rem;
+  transform: translateY(110%);
+  transition: color 0.25s, transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.nav-overlay ul a::before {
+  content: ''; display: inline-block;
+  width: 14px; height: 1px; background: var(--sky);
+  flex-shrink: 0;
+  transition: width 0.3s;
+}
+.nav-overlay ul a:hover { color: #fff; }
+.nav-overlay ul a:hover::before { width: 22px; }
+.nav-overlay.open ul a { transform: translateY(0); }
+.nav-overlay ul li:nth-child(1) a { transition-delay: 0.08s; }
+.nav-overlay ul li:nth-child(2) a { transition-delay: 0.14s; }
+.nav-overlay ul li:nth-child(3) a { transition-delay: 0.20s; }
+.nav-overlay-sub {
+  margin-top: 1.8rem;
+  font-size: 0.6rem; letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.18);
+  transform: translateY(10px); opacity: 0;
+  transition: transform 0.4s 0.28s, opacity 0.4s 0.28s;
+}
+.nav-overlay.open .nav-overlay-sub { transform: translateY(0); opacity: 1; }
+
+/* ===== PAGE ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.page-tag { animation: slideRight 0.8s 0.2s both ease-out; }
+.page-hero h1 { animation: fadeUp 0.9s 0.35s both cubic-bezier(0.23,1,0.32,1); }
+.page-hero p { animation: fadeUp 0.9s 0.55s both cubic-bezier(0.23,1,0.32,1); }
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.23,1,0.32,1), transform 0.75s cubic-bezier(0.23,1,0.32,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.stagger-item {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1),
+              border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.stagger-item.visible { opacity: 1; transform: translateY(0); }
+
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤツドロ<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+<button class="menu-btn" id="menuBtn" aria-label="メニュー">
+  <span></span><span></span><span></span>
+</button>
+<nav class="nav-overlay" id="navOverlay">
   <ul>
     <li><a href="service.html">サービス</a></li>
     <li><a href="area.html">対応エリア</a></li>
     <li><a href="contact.html">お問い合わせ</a></li>
   </ul>
+  <div class="nav-overlay-sub">YATSUGATAKE DRONE LOGISTICS</div>
 </nav>
+
+  <nav id="nav">
+    <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤ ツ ド ロ。<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+    <ul class="nav-links">
+      <li><a href="service.html">サービス</a></li>
+      <li><a href="area.html">対応エリア</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
 
 <div class="page-hero">
   <video autoplay muted loop playsinline class="page-video">
@@ -216,40 +331,43 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
 </div>
 
 <div class="contact-wrap">
-  <div class="contact-info">
+  <div class="contact-info reveal">
     <h2>お気軽に<br>ご相談ください</h2>
     <p>ドローン物流の導入に興味をお持ちの山小屋オーナー様、まずは無料相談からお気軽にどうぞ。現在、テスト運航にご協力いただける山小屋を特別価格にてご案内しています。</p>
     <div class="info-block"><div class="info-label">所在地</div><div class="info-value">〒408-0000<br>山梨県北杜市</div></div>
     <div class="info-block"><div class="info-label">営業時間</div><div class="info-value">平日 9:00〜17:00<br>土日祝・悪天候時は対応が遅れる場合があります</div></div>
     <div class="info-block"><div class="info-label">返信目安</div><div class="info-value">2営業日以内</div></div>
-    <div class="faq">
+    <div class="faq reveal">
       <h3>よくある質問</h3>
       <div class="faq-item"><div class="faq-q">Q. テスト運航中の費用は？</div><div class="faq-a">テスト期間中は通常料金より大幅割引にてご案内します。まずはご相談ください。</div></div>
       <div class="faq-item"><div class="faq-q">Q. 冬季でも飛べますか？</div><div class="faq-a">気温・風速・視界の条件が整えば冬季も運航予定です。安全基準を最優先に判断します。</div></div>
       <div class="faq-item"><div class="faq-q">Q. 対応エリア外の山小屋も相談できますか？</div><div class="faq-a">まずはご相談ください。エリア拡張の参考にさせていただきます。</div></div>
     </div>
   </div>
-  <div class="form-panel">
-    <form>
-      <div class="form-row">
-        <div class="form-group"><label>お名前 <span class="req">*</span></label><input type="text" placeholder="山田 太郎"></div>
-        <div class="form-group"><label>山小屋・施設名</label><input type="text" placeholder="〇〇山荘"></div>
-      </div>
-      <div class="form-group"><label>メールアドレス <span class="req">*</span></label><input type="email" placeholder="info@example.com"></div>
-      <div class="form-group"><label>電話番号</label><input type="tel" placeholder="0551-00-0000"></div>
-      <div class="form-group">
-        <label>お問い合わせの種類 <span class="req">*</span></label>
-        <select><option value="" disabled selected>選択してください</option><option>テスト運航への参加について</option><option>サービス・料金について</option><option>対応エリアについて</option><option>パートナー・業務提携について</option><option>その他</option></select>
-      </div>
-      <div class="form-group"><label>メッセージ <span class="req">*</span></label><textarea placeholder="ご質問・ご要望・現在の状況などをご記入ください。"></textarea></div>
-      <button type="submit" class="submit-btn">送 信 す る</button>
-      <p class="form-note">※ お送りいただいた個人情報は、お問い合わせへの返答にのみ使用します。</p>
-    </form>
+  <div class="form-panel reveal">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSchM44oXmmSKDLAO8hPiAT971dK7otCax9l-vmwwuAyhqT5Bw/viewform?embedded=true"
+      width="100%"
+      height="900"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      style="display:block; border:none; background:transparent;"
+      loading="lazy"
+    >読み込み中…</iframe>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo">ヤツドロ。</div>
+  <div class="footer-logo">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.75rem; transition:opacity 0.25s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" style="opacity:0.9;">
+      <img src="icon.png" width="36" height="36" alt="ヤツドロ" style="filter: brightness(0) invert(1); opacity:1; display:block;">
+      <span style="display:flex; flex-direction:column; line-height:1; gap:5px;">
+        <span style="font-family:'Semamojikana',sans-serif; font-size:1rem; color:#fff; letter-spacing:0.05em;">ヤ ツ ド ロ。</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:0.5rem; color:rgba(255,255,255,0.65); letter-spacing:0.2em; font-weight:300;">YATSUGATAKE DRONE LOGISTICS</span>
+      </span>
+    </a>
+  </div>
   <p>〒408-0000 山梨県北杜市　© 2026 ヤツドロ。</p>
 </footer>
 
@@ -258,6 +376,73 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
 });
+const menuBtn = document.getElementById('menuBtn');
+const navOverlay = document.getElementById('navOverlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+  document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+navOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+// Contact form mailto
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name    = this.querySelector('input[type="text"]').value.trim();
+    const hut     = this.querySelectorAll('input[type="text"]')[1]?.value.trim() || '';
+    const email   = this.querySelector('input[type="email"]').value.trim();
+    const tel     = this.querySelector('input[type="tel"]').value.trim();
+    const type    = this.querySelector('select').value;
+    const message = this.querySelector('textarea').value.trim();
+
+    if (!name || !email || !type || !message) {
+      alert('必須項目（*）をすべてご入力ください。');
+      return;
+    }
+
+    const body = [
+      `【お名前】${name}`,
+      hut ? `【山小屋・施設名】${hut}` : '',
+      `【メールアドレス】${email}`,
+      tel ? `【電話番号】${tel}` : '',
+      `【お問い合わせ種類】${type}`,
+      '',
+      `【メッセージ】`,
+      message,
+      '',
+      '---',
+      'ヤツドロ。お問い合わせフォームより',
+    ].filter(l => l !== undefined).join('\n');
+
+    const mailto = `mailto:info@yatsudoro.jp?subject=${encodeURIComponent('【お問い合わせ】' + type)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
+    // Show success state
+    contactForm.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+}
+
+const revealEls = document.querySelectorAll('.reveal, .stagger-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const siblings = entry.target.parentNode ? Array.from(entry.target.parentNode.children) : [];
+      const idx = siblings.indexOf(entry.target);
+      setTimeout(() => entry.target.classList.add('visible'), 
+        entry.target.classList.contains('stagger-item') ? idx * 90 : 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

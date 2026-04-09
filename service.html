@@ -196,7 +196,7 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 .footer-logo { font-family: 'Shippori Mincho B1', serif; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
-footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 
 @media(max-width: 768px) {
   nav { padding: 1rem 1.5rem; } nav ul { gap: 1.2rem; }
@@ -205,18 +205,133 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
   .service-item { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 0.8rem; text-align: center; }
 }
+
+/* ===== HAMBURGER MENU ===== */
+.nav-links { display: none !important; }
+.menu-btn {
+  position: fixed; top: 1.1rem; right: 1.5rem; z-index: 200;
+  width: 50px; height: 50px;
+  background: var(--deep);
+  border: none; cursor: pointer;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 20px rgba(13,34,64,0.28);
+}
+.menu-btn:hover { background: var(--peak); transform: scale(1.05); }
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: #fff;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s;
+  transform-origin: center;
+}
+.menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Compact dropdown panel from top-right */
+.nav-overlay {
+  position: fixed; top: 0; right: 0; z-index: 150;
+  background: var(--peak);
+  padding: 5rem 2.5rem 2rem;
+  min-width: 220px;
+  transform: translateY(-110%);
+  transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  pointer-events: none;
+  box-shadow: 0 8px 40px rgba(13,34,64,0.32);
+}
+.nav-overlay.open {
+  transform: translateY(0);
+  pointer-events: all;
+}
+.nav-overlay ul { list-style: none; }
+.nav-overlay ul li {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-overlay ul li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay ul a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500; color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 0.85rem 0;
+  letter-spacing: 0.14em;
+  display: flex; align-items: center; gap: 0.6rem;
+  transform: translateY(110%);
+  transition: color 0.25s, transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.nav-overlay ul a::before {
+  content: ''; display: inline-block;
+  width: 14px; height: 1px; background: var(--sky);
+  flex-shrink: 0;
+  transition: width 0.3s;
+}
+.nav-overlay ul a:hover { color: #fff; }
+.nav-overlay ul a:hover::before { width: 22px; }
+.nav-overlay.open ul a { transform: translateY(0); }
+.nav-overlay ul li:nth-child(1) a { transition-delay: 0.08s; }
+.nav-overlay ul li:nth-child(2) a { transition-delay: 0.14s; }
+.nav-overlay ul li:nth-child(3) a { transition-delay: 0.20s; }
+.nav-overlay-sub {
+  margin-top: 1.8rem;
+  font-size: 0.6rem; letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.18);
+  transform: translateY(10px); opacity: 0;
+  transition: transform 0.4s 0.28s, opacity 0.4s 0.28s;
+}
+.nav-overlay.open .nav-overlay-sub { transform: translateY(0); opacity: 1; }
+
+/* ===== PAGE ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.page-tag { animation: slideRight 0.8s 0.2s both ease-out; }
+.page-hero h1 { animation: fadeUp 0.9s 0.35s both cubic-bezier(0.23,1,0.32,1); }
+.page-hero p { animation: fadeUp 0.9s 0.55s both cubic-bezier(0.23,1,0.32,1); }
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.23,1,0.32,1), transform 0.75s cubic-bezier(0.23,1,0.32,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.stagger-item {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1),
+              border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.stagger-item.visible { opacity: 1; transform: translateY(0); }
+
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤツドロ<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+<button class="menu-btn" id="menuBtn" aria-label="メニュー">
+  <span></span><span></span><span></span>
+</button>
+<nav class="nav-overlay" id="navOverlay">
   <ul>
     <li><a href="service.html">サービス</a></li>
     <li><a href="area.html">対応エリア</a></li>
     <li><a href="contact.html">お問い合わせ</a></li>
   </ul>
+  <div class="nav-overlay-sub">YATSUGATAKE DRONE LOGISTICS</div>
 </nav>
+
+  <nav id="nav">
+    <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤ ツ ド ロ。<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+    <ul class="nav-links">
+      <li><a href="service.html">サービス</a></li>
+      <li><a href="area.html">対応エリア</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
 
 <div class="page-hero">
   <video autoplay muted loop playsinline class="page-video">
@@ -229,9 +344,9 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
 </div>
 
 <section class="services">
-  <div class="section-eyebrow">Our Services</div>
-  <h2 class="section-title">サービス一覧</h2>
-  <div class="service-item">
+  <div class="section-eyebrow reveal">Our Services</div>
+  <h2 class="section-title reveal">サービス一覧</h2>
+  <div class="service-item stagger-item">
     <div class="service-num">01</div>
     <div>
       <div class="service-name">定期便配送サービス</div>
@@ -239,7 +354,7 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
       <div class="tags"><span class="tag">食材</span><span class="tag">飲料</span><span class="tag">消耗品</span><span class="tag">定期契約割引あり</span></div>
     </div>
   </div>
-  <div class="service-item">
+  <div class="service-item stagger-item">
     <div class="service-num">02</div>
     <div>
       <div class="service-name">緊急・スポット配送</div>
@@ -247,7 +362,7 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
       <div class="tags"><span class="tag">医薬品</span><span class="tag">緊急物資</span><span class="tag">スポット対応</span></div>
     </div>
   </div>
-  <div class="service-item">
+  <div class="service-item stagger-item">
     <div class="service-num">03</div>
     <div>
       <div class="service-name">重量貨物輸送</div>
@@ -258,24 +373,24 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
 </section>
 
 <section class="items">
-  <div class="section-eyebrow">Cargo Types</div>
-  <h2 class="section-title">対応品目</h2>
+  <div class="section-eyebrow reveal">Cargo Types</div>
+  <h2 class="section-title reveal">対応品目</h2>
   <div class="items-grid">
-    <div class="item-card"><div class="item-icon">🥩</div><div class="item-name">食材・生鮮品</div></div>
-    <div class="item-card"><div class="item-icon">🍶</div><div class="item-name">飲料・酒類</div></div>
-    <div class="item-card"><div class="item-icon">💊</div><div class="item-name">医薬品・衛生用品</div></div>
-    <div class="item-card"><div class="item-icon">🔧</div><div class="item-name">工具・補修材</div></div>
-    <div class="item-card"><div class="item-icon">🧴</div><div class="item-name">洗剤・消耗品</div></div>
-    <div class="item-card"><div class="item-icon">🎒</div><div class="item-name">登山用品</div></div>
-    <div class="item-card"><div class="item-icon">📦</div><div class="item-name">その他雑貨</div></div>
-    <div class="item-card"><div class="item-icon">🔋</div><div class="item-name">電池・充電器</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🥩</div><div class="item-name">食材・生鮮品</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🍶</div><div class="item-name">飲料・酒類</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">💊</div><div class="item-name">医薬品・衛生用品</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🔧</div><div class="item-name">工具・補修材</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🧴</div><div class="item-name">洗剤・消耗品</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🎒</div><div class="item-name">登山用品</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">📦</div><div class="item-name">その他雑貨</div></div>
+    <div class="item-card stagger-item"><div class="item-icon">🔋</div><div class="item-name">電池・充電器</div></div>
   </div>
 </section>
 
 <section class="pricing">
-  <div class="section-eyebrow">Pricing</div>
-  <h2 class="section-title">料金目安</h2>
-  <table>
+  <div class="section-eyebrow reveal">Pricing</div>
+  <h2 class="section-title reveal">料金目安</h2>
+  <table class="reveal">
     <thead><tr><th>プラン</th><th>内容</th><th>料金（税別）</th></tr></thead>
     <tbody>
       <tr><td>定期便ライト</td><td>週1便・5kgまで</td><td>¥15,000〜 / 月</td></tr>
@@ -288,7 +403,15 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
 </section>
 
 <footer>
-  <div class="footer-logo">ヤツドロ。</div>
+  <div class="footer-logo">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.75rem; transition:opacity 0.25s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" style="opacity:0.9;">
+      <img src="icon.png" width="36" height="36" alt="ヤツドロ" style="filter: brightness(0) invert(1); opacity:1; display:block;">
+      <span style="display:flex; flex-direction:column; line-height:1; gap:5px;">
+        <span style="font-family:'Semamojikana',sans-serif; font-size:1rem; color:#fff; letter-spacing:0.05em;">ヤ ツ ド ロ。</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:0.5rem; color:rgba(255,255,255,0.65); letter-spacing:0.2em; font-weight:300;">YATSUGATAKE DRONE LOGISTICS</span>
+      </span>
+    </a>
+  </div>
   <p>〒408-0000 山梨県北杜市　© 2026 ヤツドロ。</p>
 </footer>
 
@@ -297,6 +420,33 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
 });
+const menuBtn = document.getElementById('menuBtn');
+const navOverlay = document.getElementById('navOverlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+  document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+navOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+const revealEls = document.querySelectorAll('.reveal, .stagger-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const siblings = entry.target.parentNode ? Array.from(entry.target.parentNode.children) : [];
+      const idx = siblings.indexOf(entry.target);
+      setTimeout(() => entry.target.classList.add('visible'), 
+        entry.target.classList.contains('stagger-item') ? idx * 90 : 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
