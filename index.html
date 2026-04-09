@@ -43,18 +43,20 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(29,58,92,0.1); }
   font-size: 1.05rem; font-weight: 700;
   color: var(--deep); letter-spacing: 0.04em;
   text-decoration: none;
-  display: flex; align-items: center; gap: 0.6rem;
+  display: flex; flex-direction: row; align-items: center; gap: 0.6rem;
 }
 .logo-text {
   font-family: 'Semamojikana', sans-serif;
   letter-spacing: 0.05em;
 }
-.logo-img { height: 38px; width: 38px; object-fit: contain; flex-shrink: 0; }
-.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-img { height: 38px; width: 38px; object-fit: contain; flex-shrink: 0; border-radius: 50%; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; align-items: center; }
+.logo-name { font-family: 'Semamojikana', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.05em; }
 .logo-sub {
   font-size: 0.55rem; display: block;
   color: var(--sky); font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 300; letter-spacing: 0.18em; margin-top: 4px;
+  font-weight: 300; letter-spacing: 0.18em; margin-top: 2px;
+  text-align: center; white-space: nowrap;
 }
 nav ul { list-style: none; display: flex; gap: 2.2rem; }
 nav ul a {
@@ -266,20 +268,21 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 
 /* Compact dropdown panel from top-right */
 .nav-overlay {
-  position: fixed; top: 0; right: 0; z-index: 150;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 150;
   background: var(--peak);
-  padding: 5rem 2.5rem 2rem;
-  min-width: 220px;
-  transform: translateY(-110%);
-  transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  width: 260px;
+  padding: 5.5rem 2rem 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
   pointer-events: none;
-  box-shadow: 0 8px 40px rgba(13,34,64,0.32);
+  box-shadow: -8px 0 40px rgba(13,34,64,0.28);
+  display: flex; flex-direction: column; justify-content: flex-start;
 }
 .nav-overlay.open {
-  transform: translateY(0);
+  transform: translateX(0);
   pointer-events: all;
 }
-.nav-overlay ul { list-style: none; }
+.nav-overlay ul { list-style: none; display: block; }
 .nav-overlay ul li {
   overflow: hidden;
   border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -290,11 +293,12 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
   font-size: 0.82rem;
   font-weight: 500; color: rgba(255,255,255,0.65);
   text-decoration: none;
-  padding: 0.85rem 0;
+  padding: 1rem 0;
   letter-spacing: 0.14em;
   display: flex; align-items: center; gap: 0.6rem;
-  transform: translateY(110%);
-  transition: color 0.25s, transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  white-space: nowrap;
+  transform: translateX(18px); opacity: 0;
+  transition: color 0.25s, transform 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.45s cubic-bezier(0.23,1,0.32,1);
 }
 .nav-overlay ul a::before {
   content: ''; display: inline-block;
@@ -304,18 +308,19 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 }
 .nav-overlay ul a:hover { color: #fff; }
 .nav-overlay ul a:hover::before { width: 22px; }
-.nav-overlay.open ul a { transform: translateY(0); }
-.nav-overlay ul li:nth-child(1) a { transition-delay: 0.08s; }
-.nav-overlay ul li:nth-child(2) a { transition-delay: 0.14s; }
-.nav-overlay ul li:nth-child(3) a { transition-delay: 0.20s; }
+.nav-overlay.open ul a { transform: translateX(0); opacity: 1; }
+.nav-overlay ul li:nth-child(1) a { transition-delay: 0.12s; }
+.nav-overlay ul li:nth-child(2) a { transition-delay: 0.20s; }
+.nav-overlay ul li:nth-child(3) a { transition-delay: 0.28s; }
 .nav-overlay-sub {
-  margin-top: 1.8rem;
-  font-size: 0.6rem; letter-spacing: 0.22em;
-  color: rgba(255,255,255,0.18);
-  transform: translateY(10px); opacity: 0;
-  transition: transform 0.4s 0.28s, opacity 0.4s 0.28s;
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.16);
+  opacity: 0;
+  transition: opacity 0.4s 0.36s;
 }
-.nav-overlay.open .nav-overlay-sub { transform: translateY(0); opacity: 1; }
+.nav-overlay.open .nav-overlay-sub { opacity: 1; }
 
 /* ===== PAGE ANIMATIONS ===== */
 @keyframes fadeUp {
@@ -358,6 +363,26 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 .card.visible { opacity: 1; transform: translateY(0); }
 
 </style>
+<script>
+(function(){
+  const img = new Image();
+  img.onload = function(){
+    const c = document.createElement('canvas');
+    c.width = c.height = img.width;
+    const ctx = c.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(img.width/2, img.height/2, img.width/2, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, 0, 0);
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon'; link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+    document.head.appendChild(link);
+  };
+  img.src = 'favicon.png';
+})();
+</script>
 </head>
 <body>
 
@@ -374,7 +399,10 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
 </nav>
 
   <nav id="nav">
-    <a href="index.html" class="logo"><img src="icon.png" class="logo-img" alt="ヤツドロ"><span class="logo-text">ヤ ツ ド ロ。<span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span></a>
+    <a href="index.html" class="logo">
+      <img src="icon.png" class="logo-img" alt="ヤツドロ">
+      <span class="logo-text"><span class="logo-name">ヤ ツ ド ロ。</span><span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span>
+    </a>
     <ul class="nav-links">
       <li><a href="service.html">サービス</a></li>
       <li><a href="area.html">対応エリア</a></li>
@@ -422,7 +450,7 @@ footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
   <div class="footer-logo">
     <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.75rem; transition:opacity 0.25s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" style="opacity:0.9;">
       <img src="icon.png" width="36" height="36" alt="ヤツドロ" style="filter: brightness(0) invert(1); opacity:1; display:block;">
-      <span style="display:flex; flex-direction:column; line-height:1; gap:5px;">
+      <span style="display:flex; flex-direction:column; line-height:1; gap:5px; align-items:center;">
         <span style="font-family:'Semamojikana',sans-serif; font-size:1rem; color:#fff; letter-spacing:0.05em;">ヤ ツ ド ロ。</span>
         <span style="font-family:'Noto Sans JP',sans-serif; font-size:0.5rem; color:rgba(255,255,255,0.65); letter-spacing:0.2em; font-weight:300;">YATSUGATAKE DRONE LOGISTICS</span>
       </span>
