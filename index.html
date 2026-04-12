@@ -1,12 +1,575 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ヤツドロ。管理画面</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヤツドロ。| 空から山小屋へ</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Semamojikana';
+  src: url('Semamojikana-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --white: #ffffff;
+  --snow: #f4f7fb;
+  --mist: #e4ecf5;
+  --ridge: #c8d8ea;
+  --sky: #4a7fa8;
+  --deep: #1d3a5c;
+  --peak: #0d2240;
+  --gold: #b8996a;
+  --text: #2c3e52;
+  --sub: #6b7f96;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 1.1rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--mist);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 24px rgba(29,58,92,0.1); }
+.logo {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--deep); letter-spacing: 0.04em;
+  text-decoration: none;
+  display: flex; flex-direction: row; align-items: center; gap: 0.6rem;
+}
+.logo-text {
+  font-family: 'Semamojikana', sans-serif;
+  letter-spacing: 0.05em;
+}
+.logo-img { height: 38px; width: 38px; object-fit: contain; flex-shrink: 0; border-radius: 50%; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; align-items: center; }
+.logo-name { font-family: 'Semamojikana', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.05em; }
+.logo-sub {
+  font-size: 0.55rem; display: block;
+  color: var(--sky); font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300; letter-spacing: 0.18em; margin-top: 2px;
+  text-align: center; white-space: nowrap;
+}
+nav ul { list-style: none; display: flex; gap: 2.2rem; }
+nav ul a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.8rem; letter-spacing: 0.1em; font-weight: 500;
+  opacity: 0.65; transition: opacity 0.2s, color 0.2s;
+  position: relative; padding-bottom: 2px;
+}
+nav ul a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--sky); transition: width 0.3s;
+}
+nav ul a:hover { opacity: 1; color: var(--deep); }
+nav ul a:hover::after { width: 100%; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; align-items: flex-start;
+  padding: 0 3rem 0;
+  position: relative; overflow: hidden;
+}
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+  filter: brightness(0.72) saturate(0.85);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(170deg,
+    rgba(255,255,255,0.04) 0%,
+    rgba(13,34,64,0.18) 45%,
+    rgba(13,34,64,0.62) 100%);
+  z-index: 1;
+}
+.hero-ridge {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 160px; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160'%3E%3Cpolygon points='0,160 0,105 100,70 240,98 380,42 530,75 680,18 830,55 980,28 1120,68 1280,38 1440,58 1440,160' fill='%23ffffff'/%3E%3C/svg%3E") bottom/cover no-repeat;
+}
+.hero-content {
+  position: relative; z-index: 3;
+  padding-bottom: 7rem;
+}
+.hero-tag {
+  font-size: 0.68rem; letter-spacing: 0.32em;
+  color: rgba(255,255,255,0.72); text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-tag::before {
+  content: ''; display: inline-block;
+  width: 28px; height: 1px; background: rgba(255,255,255,0.55);
+}
+.hero h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+  font-weight: 800; line-height: 1.18;
+  color: #fff; margin-bottom: 1.6rem;
+  text-shadow: 0 2px 32px rgba(13,34,64,0.35);
+}
+.hero h1 em {
+  font-style: normal; display: block;
+  font-weight: 400; font-size: 0.62em;
+  letter-spacing: 0.06em; color: rgba(255,255,255,0.78);
+  margin-bottom: 0.2rem;
+}
+.hero-sub {
+  font-size: 0.93rem; line-height: 2.05;
+  color: rgba(255,255,255,0.78);
+  max-width: 430px; margin-bottom: 2.8rem;
+}
+.btn {
+  display: inline-block; background: var(--white);
+  color: var(--deep); padding: 1rem 2.6rem;
+  font-weight: 700; text-decoration: none;
+  letter-spacing: 0.12em; font-size: 0.82rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(13,34,64,0.22);
+}
+
+/* STATS */
+.stats {
+  background: var(--deep);
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.stat {
+  text-align: center; padding: 3rem 1rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 2.8rem; font-weight: 800;
+  color: #fff; line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.45);
+  margin-top: 0.6rem; letter-spacing: 0.12em;
+}
+
+/* FEATURES */
+.features { padding: 7rem 3rem; background: var(--white); }
+.section-eyebrow {
+  font-size: 0.64rem; letter-spacing: 0.35em;
+  color: var(--sky); text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.section-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 20px; height: 1px; background: var(--sky);
+}
+.section-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 700; color: var(--peak);
+  margin-bottom: 3.5rem; line-height: 1.4;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5px; background: var(--mist);
+  border: 1.5px solid var(--mist);
+}
+.card { background: var(--white); padding: 2.5rem 2rem; transition: background 0.3s; }
+.card:hover { background: var(--snow); }
+.card-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+.card-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.05rem; font-weight: 700;
+  margin-bottom: 0.8rem; color: var(--deep);
+}
+.card-text { font-size: 0.85rem; line-height: 1.95; color: var(--sub); }
+
+/* CTA */
+.cta {
+  padding: 7rem 3rem; text-align: center;
+  background: var(--snow); position: relative; overflow: hidden;
+}
+.cta::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpolygon points='0,0 1440,0 1440,80 1200,48 960,18 720,52 480,22 240,58 0,0' fill='%23ffffff'/%3E%3C/svg%3E") top/cover no-repeat;
+}
+.cta h2 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 700; color: var(--peak); margin-bottom: 1rem;
+}
+.cta p { color: var(--sub); margin-bottom: 2.5rem; font-size: 0.95rem; line-height: 2; }
+.btn-outline {
+  display: inline-block;
+  border: 1.5px solid var(--deep); color: var(--deep);
+  padding: 1rem 2.5rem; font-weight: 700;
+  text-decoration: none; letter-spacing: 0.12em; font-size: 0.82rem;
+  transition: background 0.25s, color 0.25s;
+}
+.btn-outline:hover { background: var(--deep); color: #fff; }
+
+footer {
+  background: var(--peak); padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo { font-family: 'Shippori Mincho B1', serif; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+
+@media(max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul { gap: 1.2rem; }
+  nav ul a { font-size: 0.72rem; }
+  .hero { padding: 0 1.5rem 0; }
+  .hero-content { padding-bottom: 6rem; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .features { padding: 4.5rem 1.5rem; }
+  .cta { padding: 5rem 1.5rem; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+/* ===== HAMBURGER MENU ===== */
+.nav-links { display: none !important; }
+.menu-btn {
+  position: fixed; top: 1.1rem; right: 1.5rem; z-index: 200;
+  width: 50px; height: 50px;
+  background: var(--deep);
+  border: none; cursor: pointer;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 20px rgba(13,34,64,0.28);
+}
+.menu-btn:hover { background: var(--peak); transform: scale(1.05); }
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: #fff;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s;
+  transform-origin: center;
+}
+.menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Compact dropdown panel from top-right */
+.nav-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 150;
+  background: var(--peak);
+  width: 260px;
+  padding: 5.5rem 2rem 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+  pointer-events: none;
+  box-shadow: -8px 0 40px rgba(13,34,64,0.28);
+  display: flex; flex-direction: column; justify-content: flex-start;
+}
+.nav-overlay.open {
+  transform: translateX(0);
+  pointer-events: all;
+}
+.nav-overlay ul { list-style: none; display: block; }
+.nav-overlay ul li {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-overlay ul li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay ul a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500; color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 1rem 0;
+  letter-spacing: 0.14em;
+  display: flex; align-items: center; gap: 0.6rem;
+  white-space: nowrap;
+  transform: translateX(18px); opacity: 0;
+  transition: color 0.25s, transform 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.45s cubic-bezier(0.23,1,0.32,1);
+}
+.nav-overlay ul a::before {
+  content: ''; display: inline-block;
+  width: 14px; height: 1px; background: var(--sky);
+  flex-shrink: 0;
+  transition: width 0.3s;
+}
+.nav-overlay ul a:hover { color: #fff; }
+.nav-overlay ul a:hover::before { width: 22px; }
+.nav-overlay.open ul a { transform: translateX(0); opacity: 1; }
+.nav-overlay ul li:nth-child(1) a { transition-delay: 0.12s; }
+.nav-overlay ul li:nth-child(2) a { transition-delay: 0.20s; }
+.nav-overlay ul li:nth-child(3) a { transition-delay: 0.28s; }
+.nav-overlay ul li:nth-child(4) a { transition-delay: 0.36s; }
+.nav-overlay-sub {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.16);
+  opacity: 0;
+  transition: opacity 0.4s 0.36s;
+}
+.nav-overlay.open .nav-overlay-sub { opacity: 1; }
+
+/* ===== NEWS SECTION ===== */
+.news-home { padding: 6rem 3rem; background: var(--snow); }
+.news-home .section-eyebrow { margin-bottom: 0.8rem; }
+.news-home .section-title { margin-bottom: 2.5rem; }
+.news-home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5px; background: var(--mist);
+  border: 1.5px solid var(--mist);
+  margin-bottom: 2.2rem;
+}
+.news-home-card {
+  background: var(--white); padding: 2rem 1.8rem;
+  text-decoration: none; color: inherit; display: block;
+  transition: background 0.3s;
+}
+.news-home-card:hover { background: #fff; box-shadow: inset 0 0 0 1.5px var(--ridge); }
+.news-home-meta { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.75rem; }
+.news-home-date { font-size: 0.68rem; color: var(--sub); letter-spacing: 0.1em; }
+.news-home-tag {
+  font-size: 0.6rem; letter-spacing: 0.1em; padding: 0.2rem 0.65rem; font-weight: 500;
+}
+.nh-tag-news { background: var(--mist); color: var(--sky); }
+.nh-tag-blog { background: rgba(184,153,106,0.12); color: var(--gold); }
+.nh-tag-report { background: rgba(74,127,168,0.1); color: var(--sky); }
+.news-home-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.97rem; font-weight: 700;
+  color: var(--peak); line-height: 1.6;
+  transition: color 0.2s;
+}
+.news-home-card:hover .news-home-title { color: var(--sky); }
+.news-home-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; color: var(--sky); text-decoration: none;
+  letter-spacing: 0.1em; font-weight: 500;
+  transition: gap 0.2s;
+}
+.news-home-link:hover { gap: 0.7rem; }
+
+@media (max-width: 768px) {
+  .news-home { padding: 4.5rem 1.5rem; }
+  .news-home-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== PAGE ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.hero-tag { animation: slideRight 0.8s 0.2s both ease-out; }
+.hero h1 { animation: fadeUp 0.9s 0.4s both cubic-bezier(0.23,1,0.32,1); }
+.hero-sub { animation: fadeUp 0.9s 0.6s both cubic-bezier(0.23,1,0.32,1); }
+.hero .btn { animation: fadeUp 0.9s 0.8s both cubic-bezier(0.23,1,0.32,1); }
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.23,1,0.32,1), transform 0.75s cubic-bezier(0.23,1,0.32,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.stat { 
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.stat.visible { opacity: 1; transform: translateY(0); }
+
+.card {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1), background 0.3s;
+}
+.card.visible { opacity: 1; transform: translateY(0); }
+
+</style>
+<script>
+(function(){
+  const img = new Image();
+  img.onload = function(){
+    const c = document.createElement('canvas');
+    c.width = c.height = img.width;
+    const ctx = c.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(img.width/2, img.height/2, img.width/2, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, 0, 0);
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon'; link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+    document.head.appendChild(link);
+  };
+  img.src = 'favicon.png';
+})();
+</script>
 </head>
 <body>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+<button class="menu-btn" id="menuBtn" aria-label="メニュー">
+  <span></span><span></span><span></span>
+</button>
+<nav class="nav-overlay" id="navOverlay">
+  <ul>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="area.html">対応エリア</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+  <div class="nav-overlay-sub">YATSUGATAKE DRONE LOGISTICS</div>
+</nav>
+
+  <nav id="nav">
+    <a href="index.html" class="logo">
+      <img src="icon.png" class="logo-img" alt="ヤツドロ">
+      <span class="logo-text"><span class="logo-name">ヤ ツ ド ロ。</span><span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="service.html">サービス</a></li>
+      <li><a href="area.html">対応エリア</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+
+<section class="hero">
+  <video autoplay muted loop playsinline class="hero-video">
+    <source src="hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-ridge"></div>
+  <div class="hero-content">
+    <div class="hero-tag">山梨県北杜市発 ／ 八ヶ岳の空を飛ぶ</div>
+    <h1><em>空路で届ける、</em>山小屋への<br>確かな一便。</h1>
+    <p class="hero-sub">標高2,000mを超える山岳地帯への物資輸送を、ドローンで革新する。八ヶ岳の山小屋を支えるために、私たちは空から挑みます。</p>
+    <a href="service.html" class="btn">サービスを詳しく見る →</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">25+</div><div class="stat-label">対応山小屋（目標）</div></div>
+  <div class="stat"><div class="stat-num">80kg</div><div class="stat-label">最大積載量</div></div>
+  <div class="stat"><div class="stat-num">北杜市</div><div class="stat-label">拠点 / 山梨県</div></div>
+</div>
+
+<section class="features">
+  <div class="section-eyebrow reveal">Why Drone Logistics</div>
+  <h2 class="section-title reveal">なぜドローン物流なのか</h2>
+  <div class="grid">
+    <div class="card"><div class="card-icon">🏔️</div><div class="card-title">険しい山道を越えて</div><p class="card-text">従来の人力輸送では危険を伴う急峻なルートも、ドローンなら安全かつ短時間で物資を届けることができます。</p></div>
+    <div class="card"><div class="card-icon">⚡</div><div class="card-title">スピーディな配送</div><p class="card-text">麓から山小屋まで最短15〜30分での配送を実現。食材・医薬品・緊急物資など、必要な時に必要なものを。</p></div>
+    <div class="card"><div class="card-icon">🌿</div><div class="card-title">環境への配慮</div><p class="card-text">電動ドローンによる低炭素輸送。八ヶ岳の美しい自然環境を守りながら、持続可能な物流を実現します。</p></div>
+    <div class="card"><div class="card-icon">📦</div><div class="card-title">多様な荷物に対応</div><p class="card-text">食材・飲料・医薬品・登山用品など、最大80kgまでの荷物に対応。山小屋の日常を空から支えます。</p></div>
+  </div>
+</section>
+
+<section class="news-home">
+  <div class="section-eyebrow reveal">News &amp; Blog</div>
+  <h2 class="section-title reveal">お知らせ・ブログ</h2>
+  <div class="news-home-grid">
+    <a href="news-post.html?id=1" class="news-home-card card">
+      <div class="news-home-meta">
+        <span class="news-home-date">2026.04.10</span>
+        <span class="news-home-tag nh-tag-news">お知らせ</span>
+      </div>
+      <div class="news-home-title">ヤツドロ。ウェブサイトを正式公開しました</div>
+    </a>
+    <a href="news-post.html?id=2" class="news-home-card card">
+      <div class="news-home-meta">
+        <span class="news-home-date">2026.03.28</span>
+        <span class="news-home-tag nh-tag-blog">ブログ</span>
+      </div>
+      <div class="news-home-title">八ヶ岳の山小屋が抱える物流の課題とは——現地ヒアリングレポート</div>
+    </a>
+    <a href="news-post.html?id=3" class="news-home-card card">
+      <div class="news-home-meta">
+        <span class="news-home-date">2026.03.15</span>
+        <span class="news-home-tag nh-tag-report">飛行レポート</span>
+      </div>
+      <div class="news-home-title">試験飛行 #01 ── 北杜市内の農地上空でのホバリング試験</div>
+    </a>
+  </div>
+  <a href="news.html" class="news-home-link reveal">すべての記事を見る →</a>
+</section>
+
+<section class="cta">
+  <h2 class="reveal">山小屋オーナーの方へ</h2>
+  <p class="reveal">八ヶ岳エリアの山小屋を運営されている方、<br>ドローン物流の導入に関心のある方は、ぜひご相談ください。</p>
+  <a href="contact.html" class="btn-outline reveal">無料相談・お問い合わせ</a>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.75rem; transition:opacity 0.25s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" style="opacity:0.9;">
+      <img src="icon.png" width="36" height="36" alt="ヤツドロ" style="filter: brightness(0) invert(1); opacity:1; display:block;">
+      <span style="display:flex; flex-direction:column; line-height:1; gap:5px; align-items:center;">
+        <span style="font-family:'Semamojikana',sans-serif; font-size:1rem; color:#fff; letter-spacing:0.05em;">ヤ ツ ド ロ。</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:0.5rem; color:rgba(255,255,255,0.65); letter-spacing:0.2em; font-weight:300;">YATSUGATAKE DRONE LOGISTICS</span>
+      </span>
+    </a>
+  </div>
+  <p>〒408-0000 山梨県北杜市　© 2026 ヤツドロ。</p>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Hamburger menu
+const menuBtn = document.getElementById('menuBtn');
+const navOverlay = document.getElementById('navOverlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+  document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+navOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal, .stat, .card');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 
+        entry.target.classList.contains('card') ? 
+          Array.from(entry.target.parentNode.children).indexOf(entry.target) * 80 : 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
