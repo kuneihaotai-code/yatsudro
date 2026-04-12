@@ -1,0 +1,28 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: ja
+
+collections:
+  - name: "posts"
+    label: "記事"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - label: "カテゴリ"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "お知らせ", value: "news" }
+          - { label: "ブログ", value: "blog" }
+          - { label: "飛行レポート", value: "report" }
+      - { label: "公開日", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY/MM/DD", time_format: false }
+      - { label: "概要（一覧に表示）", name: "excerpt", widget: "text" }
+      - { label: "アイキャッチ絵文字", name: "emoji", widget: "string", default: "🚁", hint: "記事のサムネイルに使う絵文字（例：🏔️ 📡 ✈️）" }
+      - { label: "本文", name: "body", widget: "markdown" }
