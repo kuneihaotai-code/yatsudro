@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事タイトル | ヤツドロ。</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Semamojikana';
+  src: url('Semamojikana-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --white: #ffffff;
+  --snow: #f4f7fb;
+  --mist: #e4ecf5;
+  --ridge: #c8d8ea;
+  --sky: #4a7fa8;
+  --deep: #1d3a5c;
+  --peak: #0d2240;
+  --gold: #b8996a;
+  --text: #2c3e52;
+  --sub: #6b7f96;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 1.1rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--mist);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 24px rgba(29,58,92,0.1); }
+.logo {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--deep); letter-spacing: 0.04em;
+  text-decoration: none;
+  display: flex; flex-direction: row; align-items: center; gap: 0.6rem;
+}
+.logo-img { height: 38px; width: 38px; object-fit: contain; flex-shrink: 0; border-radius: 50%; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; align-items: center; }
+.logo-name { font-family: 'Semamojikana', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.05em; }
+.logo-sub {
+  font-size: 0.55rem; display: block;
+  color: var(--sky); font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300; letter-spacing: 0.18em; margin-top: 2px;
+  text-align: center; white-space: nowrap;
+}
+
+/* ===== HAMBURGER ===== */
+.nav-links { display: none !important; }
+.menu-btn {
+  position: fixed; top: 1.1rem; right: 1.5rem; z-index: 200;
+  width: 50px; height: 50px;
+  background: var(--deep);
+  border: none; cursor: pointer;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 20px rgba(13,34,64,0.28);
+}
+.menu-btn:hover { background: var(--peak); transform: scale(1.05); }
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: #fff;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s;
+  transform-origin: center;
+}
+.menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 150;
+  background: var(--peak);
+  width: 260px;
+  padding: 5.5rem 2rem 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+  pointer-events: none;
+  box-shadow: -8px 0 40px rgba(13,34,64,0.28);
+  display: flex; flex-direction: column; justify-content: flex-start;
+}
+.nav-overlay.open { transform: translateX(0); pointer-events: all; }
+.nav-overlay ul { list-style: none; display: block; }
+.nav-overlay ul li {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-overlay ul li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay ul a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500; color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 1rem 0;
+  letter-spacing: 0.14em;
+  display: flex; align-items: center; gap: 0.6rem;
+  white-space: nowrap;
+  transform: translateX(18px); opacity: 0;
+  transition: color 0.25s, transform 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.45s cubic-bezier(0.23,1,0.32,1);
+}
+.nav-overlay ul a::before {
+  content: ''; display: inline-block;
+  width: 14px; height: 1px; background: var(--sky);
+  flex-shrink: 0; transition: width 0.3s;
+}
+.nav-overlay ul a:hover { color: #fff; }
+.nav-overlay ul a:hover::before { width: 22px; }
+.nav-overlay.open ul a { transform: translateX(0); opacity: 1; }
+.nav-overlay ul li:nth-child(1) a { transition-delay: 0.10s; }
+.nav-overlay ul li:nth-child(2) a { transition-delay: 0.17s; }
+.nav-overlay ul li:nth-child(3) a { transition-delay: 0.24s; }
+.nav-overlay ul li:nth-child(4) a { transition-delay: 0.31s; }
+.nav-overlay-sub {
+  margin-top: auto; padding-top: 2rem;
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.16);
+  opacity: 0; transition: opacity 0.4s 0.36s;
+}
+.nav-overlay.open .nav-overlay-sub { opacity: 1; }
+
+/* ===== ARTICLE LAYOUT ===== */
+.article-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 8rem 2rem 7rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.7rem; color: var(--sub); letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+}
+.breadcrumb a { color: var(--sky); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { opacity: 0.4; }
+
+/* Article header */
+.article-meta {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.article-date { font-size: 0.72rem; color: var(--sub); letter-spacing: 0.12em; }
+.article-tag {
+  font-size: 0.64rem; letter-spacing: 0.1em;
+  padding: 0.25rem 0.8rem; font-weight: 500;
+}
+.tag-news { background: var(--mist); color: var(--sky); }
+.tag-blog { background: rgba(184,153,106,0.12); color: var(--gold); }
+.tag-report { background: rgba(74,127,168,0.1); color: var(--sky); }
+
+.article-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800; color: var(--peak);
+  line-height: 1.45; margin-bottom: 2.5rem;
+}
+
+/* Hero image */
+.article-hero-img {
+  width: 100%; height: 340px;
+  object-fit: cover; display: block;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, var(--mist) 0%, var(--ridge) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+}
+
+/* Article body */
+.article-body {
+  font-size: 0.95rem; line-height: 2.15; color: var(--text);
+}
+.article-body p { margin-bottom: 1.6em; }
+.article-body h2 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--peak); margin: 2.8em 0 1em;
+  padding-left: 1rem;
+  border-left: 3px solid var(--sky);
+}
+.article-body h3 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--deep); margin: 2em 0 0.7em;
+}
+.article-body ul, .article-body ol {
+  padding-left: 1.5rem; margin-bottom: 1.6em;
+}
+.article-body li { margin-bottom: 0.5em; line-height: 1.9; }
+.article-body blockquote {
+  border-left: 3px solid var(--ridge);
+  padding: 1rem 1.5rem;
+  margin: 2em 0;
+  background: var(--snow);
+  color: var(--sub);
+  font-size: 0.9rem;
+}
+.article-body strong { color: var(--deep); font-weight: 700; }
+.article-body a { color: var(--sky); }
+.article-body hr {
+  border: none; border-top: 1px solid var(--mist);
+  margin: 3em 0;
+}
+
+/* Divider */
+.article-divider {
+  width: 40px; height: 1px; background: var(--ridge);
+  margin: 3.5rem 0;
+}
+
+/* Nav between posts */
+.post-nav {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5px; background: var(--mist);
+  border: 1.5px solid var(--mist);
+  margin-top: 4rem;
+}
+.post-nav a {
+  background: var(--white); padding: 1.5rem 1.8rem;
+  text-decoration: none; color: inherit;
+  transition: background 0.25s;
+  display: block;
+}
+.post-nav a:hover { background: var(--snow); }
+.post-nav-label {
+  font-size: 0.64rem; letter-spacing: 0.2em; color: var(--sub);
+  margin-bottom: 0.5rem; display: block;
+}
+.post-nav-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.9rem; color: var(--deep); line-height: 1.55;
+}
+.post-nav .next { text-align: right; }
+
+/* Back to list */
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-top: 3rem;
+  font-size: 0.78rem; color: var(--sky); text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: gap 0.2s;
+}
+.back-link:hover { gap: 0.8rem; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--peak); padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo { font-family: 'Shippori Mincho B1', serif; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+footer p { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.article-wrap > * { animation: fadeUp 0.7s both ease-out; }
+.breadcrumb   { animation-delay: 0.1s; }
+.article-meta { animation-delay: 0.18s; }
+.article-title { animation-delay: 0.26s; }
+.article-hero-img { animation-delay: 0.34s; }
+.article-body { animation-delay: 0.42s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .article-wrap { padding: 7rem 1.5rem 5rem; }
+  .article-hero-img { height: 220px; font-size: 3.5rem; }
+  .post-nav { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+</style>
+<script>
+(function(){
+  const img = new Image();
+  img.onload = function(){
+    const c = document.createElement('canvas');
+    c.width = c.height = img.width;
+    const ctx = c.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(img.width/2, img.height/2, img.width/2, 0, Math.PI*2);
+    ctx.closePath(); ctx.clip();
+    ctx.drawImage(img, 0, 0);
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon'; link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+    document.head.appendChild(link);
+  };
+  img.src = 'favicon.png';
+})();
+</script>
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn" aria-label="メニュー">
+  <span></span><span></span><span></span>
+</button>
+<nav class="nav-overlay" id="navOverlay">
+  <ul>
+    <li><a href="service.html">サービス</a></li>
+    <li><a href="area.html">対応エリア</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+  <div class="nav-overlay-sub">YATSUGATAKE DRONE LOGISTICS</div>
+</nav>
+
+<nav id="nav">
+  <a href="index.html" class="logo">
+    <img src="icon.png" class="logo-img" alt="ヤツドロ">
+    <span class="logo-text">
+      <span class="logo-name">ヤ ツ ド ロ。</span>
+      <span class="logo-sub">YATSUGATAKE DRONE LOGISTICS</span>
+    </span>
+  </a>
+</nav>
+
+<div class="article-wrap" id="articleWrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">HOME</a>
+    <span>/</span>
+    <a href="news.html">お知らせ・ブログ</a>
+    <span>/</span>
+    <span id="bcTitle">記事タイトル</span>
+  </nav>
+
+  <div class="article-meta" id="articleMeta">
+    <span class="article-date" id="articleDate">2026.04.10</span>
+    <span class="article-tag tag-news" id="articleTag">お知らせ</span>
+  </div>
+
+  <h1 class="article-title" id="articleTitle">記事を読み込み中...</h1>
+
+  <div class="article-hero-img" id="articleHeroImg">🚁</div>
+
+  <div class="article-body" id="articleBody">
+    <p>記事を読み込み中...</p>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <div class="post-nav" id="postNav">
+    <a href="#" class="prev" id="prevPost">
+      <span class="post-nav-label">← 前の記事</span>
+      <span class="post-nav-title" id="prevTitle">—</span>
+    </a>
+    <a href="#" class="next" id="nextPost">
+      <span class="post-nav-label">次の記事 →</span>
+      <span class="post-nav-title" id="nextTitle">—</span>
+    </a>
+  </div>
+
+  <a href="news.html" class="back-link">← お知らせ一覧へ戻る</a>
+
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.75rem;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" style="opacity:0.9;">
+      <img src="icon.png" width="36" height="36" alt="ヤツドロ" style="filter: brightness(0) invert(1); opacity:1; display:block;">
+      <span style="display:flex; flex-direction:column; line-height:1; gap:5px; align-items:center;">
+        <span style="font-family:'Semamojikana',sans-serif; font-size:1rem; color:#fff; letter-spacing:0.05em;">ヤ ツ ド ロ。</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:0.5rem; color:rgba(255,255,255,0.65); letter-spacing:0.2em; font-weight:300;">YATSUGATAKE DRONE LOGISTICS</span>
+      </span>
+    </a>
+  </div>
+  <p>〒408-0000 山梨県北杜市　© 2026 ヤツドロ。</p>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Hamburger
+const menuBtn = document.getElementById('menuBtn');
+const navOverlay = document.getElementById('navOverlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+  document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+navOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ===== ARTICLE DATA =====
+// ここにHTMLで記事を追加してください。
+// id: 記事のID（URLの ?id=XX と対応）
+// category: 'news' | 'blog' | 'report'
+// tagLabel: タグ表示テキスト
+// tagClass: 'tag-news' | 'tag-blog' | 'tag-report'
+// emoji: ヒーロー画像の代わりのアイコン（画像URLをimgに変えてもOK）
+// body: HTML形式の記事本文
+const ARTICLES = [
+  {
+    id: '1',
+    date: '2026.04.10',
+    category: 'news',
+    tagLabel: 'お知らせ',
+    tagClass: 'tag-news',
+    emoji: '🚁',
+    title: 'ヤツドロ。ウェブサイトを正式公開しました',
+    body: `
+      <p>八ヶ岳エリアを中心としたドローン物流サービス「ヤツドロ。」の公式ウェブサイトをオープンしました。</p>
+      <h2>サービス開始に向けて</h2>
+      <p>私たちヤツドロ。は、標高2,000mを超える八ヶ岳の山小屋への物資輸送を、ドローンによって革新することを目指しています。従来の人力輸送では多大な体力とコストが必要とされていたこの課題に、テクノロジーで挑みます。</p>
+      <h2>今後の予定</h2>
+      <p>2026年夏シーズンに向け、北杜市内での試験飛行を重ねています。山小屋オーナーの皆さまとのパートナーシップを順次拡大する予定です。</p>
+      <blockquote>山を愛する人々のために、空から支えたい——これが私たちの原点です。</blockquote>
+      <p>ご興味のある山小屋オーナー様、関係者の方は、<a href="contact.html">お問い合わせフォーム</a>よりお気軽にご連絡ください。</p>
+    `
+  },
+  {
+    id: '2',
+    date: '2026.03.28',
+    category: 'blog',
+    tagLabel: 'ブログ',
+    tagClass: 'tag-blog',
+    emoji: '🏔️',
+    title: '八ヶ岳の山小屋が抱える物流の課題とは——現地ヒアリングレポート',
+    body: `
+      <p>先日、八ヶ岳エリアの山小屋オーナー数名に直接お話を伺う機会をいただきました。今回はそのレポートをお届けします。</p>
+      <h2>毎シーズンの物資搬入の実態</h2>
+      <p>登山者を迎える準備として、シーズン前に大量の食材・燃料・備品を山小屋に運び込む必要があります。一般的な方法はヘリコプターによる輸送ですが、コストが非常に高く、また天候に左右されやすいという問題があります。</p>
+      <h3>ヘリコプター輸送の課題</h3>
+      <ul>
+        <li>1回あたりのコストが高額（数十万円規模）</li>
+        <li>悪天候時はキャンセルが多発する</li>
+        <li>騒音による自然環境への影響</li>
+        <li>小口・緊急輸送に対応しにくい</li>
+      </ul>
+      <h2>ドローン物流への期待</h2>
+      <p>オーナーさんからは「少量でも気軽に頼めるサービスがあれば」という声が多く上がりました。食材が足りなくなっても麓まで取りに行けない状況が、実は日常的に発生しているとのことです。</p>
+      <p>私たちのドローン物流サービスは、まさにこのニーズに応えるものです。今後も現場の声を大切に、サービスを設計してまいります。</p>
+    `
+  },
+  {
+    id: '3',
+    date: '2026.03.15',
+    category: 'report',
+    tagLabel: '飛行レポート',
+    tagClass: 'tag-report',
+    emoji: '📡',
+    title: '試験飛行 #01 ── 北杜市内の農地上空でのホバリング試験',
+    body: `
+      <p>2026年3月12日、北杜市内の農地にて、初回の試験飛行を実施しました。天候は晴れ、風速2〜4m/s、気温8℃というコンディションでした。</p>
+      <h2>試験の目的</h2>
+      <p>今回の試験では、主に以下の項目を確認しました。</p>
+      <ul>
+        <li>ホバリング時の機体安定性（無積載・積載時）</li>
+        <li>GPS精度と自動ホールド性能</li>
+        <li>バッテリー消費と飛行可能時間</li>
+        <li>操縦システムとの通信品質</li>
+      </ul>
+      <h2>結果サマリー</h2>
+      <p>無積載時は非常に安定したホバリングを確認。積載重量30kgの条件でも、機体の姿勢制御に問題は見られませんでした。</p>
+      <blockquote>飛行時間は無積載で約28分、30kg積載時で約19分を計測。目標値をクリアしています。</blockquote>
+      <h2>次回の予定</h2>
+      <p>次回は傾斜地上空での飛行と、GNSSが不安定な環境での自律飛行テストを行います。</p>
+    `
+  },
+  {
+    id: '4',
+    date: '2026.02.20',
+    category: 'blog',
+    tagLabel: 'ブログ',
+    tagClass: 'tag-blog',
+    emoji: '📋',
+    title: 'ドローン物流の法規制と、山岳エリアへの適用について',
+    body: `
+      <p>日本のドローン法規制は近年大きく変わりました。本記事では、私たちのサービスに関連する法的背景を整理します。</p>
+      <h2>航空法改正とレベル4飛行</h2>
+      <p>2022年12月に施行された改正航空法により、第三者上空での自律飛行（レベル4）が解禁されました。これにより、山岳地帯のような人が少ないエリアでの商業運用がより現実的になっています。</p>
+      <h2>山岳エリア特有の考慮事項</h2>
+      <ul>
+        <li><strong>飛行禁止区域の確認：</strong>国立公園・自然保護区内はエリアごとに許可が必要です</li>
+        <li><strong>高度制限：</strong>原則150m以下ですが、地形や運用目的により申請で緩和可能</li>
+        <li><strong>気象条件：</strong>山岳部では急激な気象変化があるため、フライト判断が重要</li>
+      </ul>
+      <p>私たちは関係省庁・自治体と連携しながら、適切な飛行許可のもとでサービスを展開します。</p>
+    `
+  },
+  {
+    id: '5',
+    date: '2026.01.30',
+    category: 'news',
+    tagLabel: 'お知らせ',
+    tagClass: 'tag-news',
+    emoji: '🏕️',
+    title: '2026年シーズンの山小屋パートナー募集を開始します',
+    body: `
+      <p>2026年の登山シーズンに向け、ドローン物流の実証実験に参加していただける山小屋オーナー・関係者を募集します。</p>
+      <h2>募集概要</h2>
+      <p>今シーズンは3〜5軒の山小屋をパートナーとして迎え、実際の物資輸送を試験的に行います。参加いただく山小屋には、費用負担なしでサービスをご体験いただけます。</p>
+      <h2>応募条件</h2>
+      <ul>
+        <li>八ヶ岳エリア（南アルプス含む）で山小屋を運営していること</li>
+        <li>年間を通じた物資輸送ニーズがあること</li>
+        <li>試験飛行の際、受け取り対応が可能なスタッフがいること</li>
+      </ul>
+      <h2>応募方法</h2>
+      <p>下記お問い合わせフォームより「パートナー応募」とご記入の上、ご連絡ください。担当者よりご連絡いたします。</p>
+      <p><a href="contact.html">→ お問い合わせフォームへ</a></p>
+    `
+  }
+];
+
+// Load article
+function loadArticle() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || '1';
+  const idx = ARTICLES.findIndex(a => a.id === id);
+  const article = ARTICLES[idx] || ARTICLES[0];
+
+  document.title = article.title + ' | ヤツドロ。';
+  document.getElementById('bcTitle').textContent = article.title;
+  document.getElementById('articleDate').textContent = article.date;
+  document.getElementById('articleTitle').textContent = article.title;
+  document.getElementById('articleBody').innerHTML = article.body;
+
+  const tag = document.getElementById('articleTag');
+  tag.textContent = article.tagLabel;
+  tag.className = 'article-tag ' + article.tagClass;
+
+  const heroImg = document.getElementById('articleHeroImg');
+  heroImg.textContent = article.emoji;
+
+  // Prev / Next
+  const prev = ARTICLES[idx - 1];
+  const next = ARTICLES[idx + 1];
+  const prevEl = document.getElementById('prevPost');
+  const nextEl = document.getElementById('nextPost');
+
+  if (prev) {
+    prevEl.href = 'news-post.html?id=' + prev.id;
+    document.getElementById('prevTitle').textContent = prev.title;
+  } else {
+    prevEl.style.opacity = '0.35'; prevEl.style.pointerEvents = 'none';
+  }
+  if (next) {
+    nextEl.href = 'news-post.html?id=' + next.id;
+    document.getElementById('nextTitle').textContent = next.title;
+  } else {
+    nextEl.style.opacity = '0.35'; nextEl.style.pointerEvents = 'none';
+  }
+}
+
+loadArticle();
+</script>
+</body>
+</html>
